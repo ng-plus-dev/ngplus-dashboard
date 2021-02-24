@@ -26,6 +26,7 @@ import { ResourceFetcherService } from '../resource-fetcher';
 import { IssuesReporterService } from './issuesReporter';
 import { CheWorkspaceClient } from '../workspace-client/cheWorkspaceClient';
 import { DevWorkspaceClient } from '../workspace-client/devWorkspaceClient';
+import { delay } from '../helpers/delay';
 
 /**
  * This class prepares all init data.
@@ -57,16 +58,19 @@ export class PreloadData {
     await this.updateUser();
     await this.updateJsonRpcMasterApi();
 
-    const isDevWorkspaceEnabled = await this.devWorkspaceClient.isEnabled();
-    if (isDevWorkspaceEnabled) {
-      const defaultNamespace = await this.cheWorkspaceClient.getDefaultNamespace();
-      const namespaceInitialized = await this.initializeNamespace(defaultNamespace);
-      if (namespaceInitialized) {
-        this.watchNamespaces(defaultNamespace);
+    this.keycloakSetup.ready.then(async () => {
+      const isDevWorkspaceEnabled = await this.devWorkspaceClient.isEnabled();
+      if (isDevWorkspaceEnabled) {
+        const defaultNamespace = await this.cheWorkspaceClient.getDefaultNamespace();
+        const namespaceInitialized = await this.initializeNamespace(defaultNamespace);
+        if (namespaceInitialized) {
+          await delay();
+          this.watchNamespaces(defaultNamespace);
+        }
       }
-    }
+      this.updateWorkspaces();
+    });
 
-    this.updateWorkspaces();
     new ResourceFetcherService().prefetchResources(this.store.getState());
 
     const settings = await this.updateWorkspaceSettings();
