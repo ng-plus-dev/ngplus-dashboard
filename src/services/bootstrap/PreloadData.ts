@@ -57,9 +57,6 @@ export class PreloadData {
     await this.updateUser();
     await this.updateJsonRpcMasterApi();
 
-    this.updateWorkspaces();
-    new ResourceFetcherService().prefetchResources(this.store.getState());
-
     const isDevWorkspaceEnabled = await this.devWorkspaceClient.isEnabled();
     if (isDevWorkspaceEnabled) {
       const defaultNamespace = await this.cheWorkspaceClient.getDefaultNamespace();
@@ -68,6 +65,9 @@ export class PreloadData {
         this.watchNamespaces(defaultNamespace);
       }
     }
+
+    this.updateWorkspaces();
+    new ResourceFetcherService().prefetchResources(this.store.getState());
 
     const settings = await this.updateWorkspaceSettings();
     await Promise.all([
