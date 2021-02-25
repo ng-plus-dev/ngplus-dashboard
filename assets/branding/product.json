@@ -1,1 +1,9 @@
-{}
+{
+  "title": "NG-Plus Code",
+  "name": "NG-Plus Code",
+  "logoFile": "ngplus-logo.png",
+  "logoTextFile": "ngplus-logo.png",
+  "helpPath": "https://ng-plus.dev",
+  "helpTitle": "ng-plus.dev",
+  "supportEmail": "info@ng-plus.dev"
+}

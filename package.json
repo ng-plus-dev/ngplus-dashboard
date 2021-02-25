@@ -1,20 +1,20 @@
 {
-  "name": "che-dashboard",
-  "version": "7.26.3-SNAPSHOT",
-  "description": "Dashboard for Eclipse CHE",
+  "name": "ngplus-dashboard",
+  "version": "0.9.0",
+  "description": "Dashboard for NG-Plus Code",
   "private": "true",
   "workspaces": [
     "che-dashboard-e2e"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/eclipse/che-dashboard.git"
+    "url": "git://github.com/ng-plus-dev/ngplus-dashboard.git"
   },
   "license": "EPL-2.0",
   "bugs": {
-    "url": "https://github.com/eclipse/che-dashboard/issues"
+    "url": "https://github.com/ng-plus-dev/ngplus-dashboard/issues"
   },
-  "homepage": "https://github.com/eclipse/che-dashboard",
+  "homepage": "https://github.com/ng-plus-dev/ngplus-dashboard",
   "engines": {
     "yarn": ">=1.20.0",
     "node": ">=12"
@@ -33,7 +33,9 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "licenseCheck:prepare": "license-tool/build.sh",
-    "licenseCheck:run": "license-tool/run.sh"
+    "licenseCheck:run": "license-tool/run.sh",
+    "docker:build": "docker build . -f apache.Dockerfile -t gcr.io/ng-plus/ngplus-che-dashboard:$npm_package_version",
+    "docker:push": "docker push gcr.io/ng-plus/ngplus-che-dashboard:$npm_package_version"
   },
   "dependencies": {
     "@eclipse-che/workspace-client": "^0.0.1-1612278649",

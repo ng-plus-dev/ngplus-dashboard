@@ -287,14 +287,6 @@ export class HeaderTools extends React.PureComponent<Props, State> {
     return [
       <ApplicationLauncherGroup key='info_button'>
         <ApplicationLauncherItem
-          key='make_a_wish'
-          isExternal={true}
-          component='button'
-          onClick={() => window.open(makeAWish, '_blank')}
-        >
-          Make a wish
-        </ApplicationLauncherItem>
-        <ApplicationLauncherItem
           key='documentation'
           isExternal={true}
           component='button'
